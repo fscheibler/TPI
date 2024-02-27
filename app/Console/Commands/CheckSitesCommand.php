@@ -49,7 +49,7 @@ class CheckSitesCommand extends Command
 
                 $service = app($serviceClass);
 
-                sleep($delayInSeconds);
+                //sleep($delayInSeconds);
 
                 $data = $service->getSiteData($siteName);
 
