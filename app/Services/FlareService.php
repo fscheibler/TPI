@@ -12,7 +12,7 @@ class FlareService
 
     public function __construct()
     {
-        $this->apiToken = config('provider.flare.api_key'); // Assurez-vous que cette configuration est correcte.
+        $this->apiToken = config('provider.flare.api_key');
         $this->client = new Client([
             'base_uri' => 'https://flareapp.io/api/',
             'headers' => [
@@ -32,12 +32,10 @@ class FlareService
             // Filtrer pour trouver le projet par son nom
             foreach ($projects['data'] as $project) {
                 if ($project['name'] === $siteName) {
-                    Log::info("Projet id pour {$siteName} : {$project['id']}.");
                     return $project['id'];
                 }
             }
 
-            Log::info("Aucun projet trouvé pour {$siteName}.");
             return null;
         } catch (\Exception $e) {
             Log::error("Erreur lors de la récupération du projet {$siteName} : " . $e->getMessage());
@@ -45,7 +43,7 @@ class FlareService
         }
     }
 
-    public function getProjectErrors($siteName)
+    public function getSiteData($siteName)
     {
         $projectId = $this->getProjectIdByName($siteName);
 
@@ -55,11 +53,10 @@ class FlareService
 
         try {
 
-            $response = $this->client->get("projects/{$projectId}?api_token=" . $this->apiToken."&status=open"); // Assurez-vous que cette URL est correcte selon la documentation de l'API
-            $errors = json_decode($response->getBody()->getContents(), true);
+            $response = $this->client->get("projects/{$projectId}?api_token=" . $this->apiToken."&status=open");
 
-            Log::info("Erreurs récupérées pour le projet {$siteName}.");
-            return $errors;
+            return json_decode($response->getBody()->getContents(), true);
+
         } catch (\Exception $e) {
             Log::error("Erreur lors de la récupération des erreurs pour le projet {$siteName} : " . $e->getMessage());
             return null;

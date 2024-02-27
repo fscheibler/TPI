@@ -4,7 +4,6 @@ namespace App\Services;
 
 
 use Illuminate\Support\Facades\Log;
-
 use GuzzleHttp\Client;
 
 class OhDearService
@@ -23,15 +22,19 @@ class OhDearService
         ]);
     }
 
-    public function getSiteDetails($siteId)
+    public function getSiteData($siteName)
     {
+
+        $config = config("sites");
+        $siteId = $config[$siteName]['oh_dear']['site_id'];
+
         try {
             $response = $this->client->request('GET', "sites/{$siteId}", [
-                'verify' => false, // Désactiver la vérification SSL (error curl 60 en local)
+                'verify' => false,
             ]);
             return json_decode($response->getBody()->getContents(), true);
         } catch (\Exception $e) {
-            Log::error("Erreur lors de la récupération des détails du site : {$e->getMessage()}");
+            Log::error("Erreur lors de la récupération des détails du site pour oh dear : {$e->getMessage()}");
             return null;
         }
     }
