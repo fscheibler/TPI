@@ -22,6 +22,8 @@ class ProjectsOverview extends Component
 
 
             $projects[$domain] = [
+                'id' => $project->id, // Inclure l'ID du projet
+                'domain' => $domain,
                 'oh_dear' => $ohDearStatus,
                 'flare' => $flareStatus,
             ];

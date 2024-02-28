@@ -16,7 +16,7 @@
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div class="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col min-h-screen justify-between">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -33,7 +33,7 @@
                 {{ $slot }}
             </main>
 
-            <footer class="bg-white shadow">
+            <footer class="bg-white shadow mt-auto">
                 <div class="flex justify-end mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <a href="/" class="inline-flex items-center hover:text-blue-600 transition-colors duration-200 ease-in-out">
                         Documentation
