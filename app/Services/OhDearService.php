@@ -2,39 +2,43 @@
 
 namespace App\Services;
 
-
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use GuzzleHttp\Client;
 
 class OhDearService
 {
-    private Client $client;
+    private string $baseUri = 'https://ohdear.app/api/';
+    private string $apiKey;
 
     public function __construct()
     {
-        $this->client = new Client([
-            'base_uri' => 'https://ohdear.app/api/',
-            'headers' => [
-                'Authorization' => 'Bearer ' . config('provider.ohdear.api_key'),
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ],
-        ]);
+        $this->apiKey = config('services.oh_dear.key');
     }
 
-    public function getSiteData($siteName)
+    /**
+     * @param string $siteName
+     * @return array|null
+     */
+    public function getSiteData(string $siteName): ?array
     {
-
         $config = config("sites");
         $siteId = $config[$siteName]['oh_dear']['site_id'];
 
         try {
-            $response = $this->client->request('GET', "sites/{$siteId}", [
-                'verify' => false,
-            ]);
-            return json_decode($response->getBody()->getContents(), true);
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $this->apiKey,
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ])->withoutVerifying()->get($this->baseUri . "sites/{$siteId}");
+
+            if ($response->successful()) {
+                return $response->json();
+            }
+
+            Log::error("Réponse non réussie lors de la tentative de récupération des données pour le site : {$siteName}");
+            return null;
         } catch (\Exception $e) {
-            Log::error("Erreur lors de la récupération des détails du site pour oh dear : {$e->getMessage()}");
+            Log::error("Erreur lors de la récupération des détails du site pour Oh Dear : {$e->getMessage()}");
             return null;
         }
     }

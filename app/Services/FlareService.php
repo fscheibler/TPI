@@ -2,48 +2,53 @@
 
 namespace App\Services;
 
-use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Client\RequestException;
 
 class FlareService
 {
-    private $client;
-    private $apiToken;
+    private string $apiToken;
+    private string $baseUri = 'https://flareapp.io/api/';
 
     public function __construct()
     {
         $this->apiToken = config('provider.flare.api_key');
-        $this->client = new Client([
-            'base_uri' => 'https://flareapp.io/api/',
-            'headers' => [
-                'Accept' => 'application/json',
-            ],
-            'verify' => false,
-        ]);
     }
 
-    public function getProjectIdByName($siteName)
+    /**
+     * @param string $siteName
+     * @return int|null
+     */
+    public function getProjectIdByName(string $siteName): ?int
     {
         try {
-            // Récupérer tous les projets
-            $response = $this->client->get('projects?api_token=' . $this->apiToken);
-            $projects = json_decode($response->getBody()->getContents(), true);
+            $response = Http::withHeaders([
+                'Accept' => 'application/json'
+            ])->withoutVerifying()->get($this->baseUri . 'projects', ['api_token' => $this->apiToken]);
 
-            // Filtrer pour trouver le projet par son nom
-            foreach ($projects['data'] as $project) {
-                if ($project['name'] === $siteName) {
-                    return $project['id'];
+            if ($response->successful()) {
+                $projects = $response->json();
+
+                foreach ($projects['data'] as $project) {
+                    if ($project['name'] === $siteName) {
+                        return (int)$project['id'];
+                    }
                 }
             }
 
             return null;
-        } catch (\Exception $e) {
-            Log::error("Erreur lors de la récupération du projet {$siteName} : " . $e->getMessage());
+        } catch (RequestException $e) {
+            Log::error("Erreur lors de la récupération du projet $siteName : " . $e->getMessage());
             return null;
         }
     }
 
-    public function getSiteData($siteName)
+    /**
+     * @param string $siteName
+     * @return array|null
+     */
+    public function getSiteData(string $siteName): ?array
     {
         $projectId = $this->getProjectIdByName($siteName);
 
@@ -52,13 +57,20 @@ class FlareService
         }
 
         try {
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+            ])->withoutVerifying()->get($this->baseUri . "projects/{$projectId}", [
+                'api_token' => $this->apiToken,
+                'status' => 'open'
+            ]);
 
-            $response = $this->client->get("projects/{$projectId}?api_token=" . $this->apiToken."&status=open");
+            if ($response->successful()) {
+                return $response->json();
+            }
 
-            return json_decode($response->getBody()->getContents(), true);
-
-        } catch (\Exception $e) {
-            Log::error("Erreur lors de la récupération des erreurs pour le projet {$siteName} : " . $e->getMessage());
+            return null;
+        } catch (RequestException $e) {
+            Log::error("Erreur lors de la récupération des erreurs pour le projet $siteName : " . $e->getMessage());
             return null;
         }
     }

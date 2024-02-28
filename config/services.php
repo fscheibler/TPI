@@ -30,5 +30,11 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    'oh_dear' => [
+        'key' => env('OHDEAR_API_KEY'),
+    ],
+    'flare' => [
+        'key' => env('FLARE_API_KEY'),
+    ]
 
 ];
