@@ -8,12 +8,13 @@ use App\Providers\OhDearServiceProvider;
 
 class OhDearService
 {
-    private string $baseUri = 'https://ohdear.app/api/';
+    private string $baseUri;
     private string $apiKey;
 
-    public function __construct(string $apiKey)
+    public function __construct(string $apiKey, string $baseUri)
     {
         $this->apiKey = $apiKey;
+        $this->baseUri = $baseUri;
     }
 
     /**
@@ -36,7 +37,6 @@ class OhDearService
                 return $response->json();
             }
 
-            Log::error("Réponse non réussie lors de la tentative de récupération des données pour le site : {$siteName}");
             return null;
         } catch (\Exception $e) {
             Log::error("Erreur lors de la récupération des détails du site pour Oh Dear : {$e->getMessage()}");

@@ -34,7 +34,7 @@ return [
             'site_id' => '61171',
         ],
         'flare' => [
-            'enabled' => true,
+            'enabled' => false,
         ]
     ],
     'admin.firstpoint.ch' => [

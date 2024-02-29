@@ -8,16 +8,18 @@ use Illuminate\Http\Client\RequestException;
 
 class FlareService
 {
-    private string $baseUri = 'https://flareapp.io/api/';
+    private string $baseUri;
 
     private string $apiKey;
 
     /**
-     * @param string $apiKey.
+     * @param string $apiKey
+     * @param string $baseUri
      */
-    public function __construct(string $apiKey)
+    public function __construct(string $apiKey, string $baseUri)
     {
         $this->apiKey = $apiKey;
+        $this->baseUri = $baseUri;
     }
 
     /**

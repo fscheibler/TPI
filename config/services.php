@@ -31,10 +31,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     'oh_dear' => [
-        'key' => env('OHDEAR_API_KEY'),
+        'key' => env('OH_DEAR_API_KEY'),
+        'uri' => env('OH_DEAR_BASE_URI')
     ],
     'flare' => [
         'key' => env('FLARE_API_KEY'),
+        'uri' => env('FLARE_BASE_URI')
     ]
 
 ];
