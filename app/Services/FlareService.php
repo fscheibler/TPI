@@ -8,12 +8,16 @@ use Illuminate\Http\Client\RequestException;
 
 class FlareService
 {
-    private string $apiToken;
     private string $baseUri = 'https://flareapp.io/api/';
 
-    public function __construct()
+    private string $apiKey;
+
+    /**
+     * @param string $apiKey.
+     */
+    public function __construct(string $apiKey)
     {
-        $this->apiToken = config('provider.flare.api_key');
+        $this->apiKey = $apiKey;
     }
 
     /**
@@ -25,7 +29,7 @@ class FlareService
         try {
             $response = Http::withHeaders([
                 'Accept' => 'application/json'
-            ])->withoutVerifying()->get($this->baseUri . 'projects', ['api_token' => $this->apiToken]);
+            ])->withoutVerifying()->get($this->baseUri . 'projects', ['api_token' => $this->apiKey]);
 
             if ($response->successful()) {
                 $projects = $response->json();
@@ -60,7 +64,7 @@ class FlareService
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
             ])->withoutVerifying()->get($this->baseUri . "projects/{$projectId}", [
-                'api_token' => $this->apiToken,
+                'api_token' => $this->apiKey,
                 'status' => 'open'
             ]);
 

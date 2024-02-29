@@ -4,15 +4,16 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use App\Providers\OhDearServiceProvider;
 
 class OhDearService
 {
     private string $baseUri = 'https://ohdear.app/api/';
     private string $apiKey;
 
-    public function __construct()
+    public function __construct(string $apiKey)
     {
-        $this->apiKey = config('services.oh_dear.key');
+        $this->apiKey = $apiKey;
     }
 
     /**

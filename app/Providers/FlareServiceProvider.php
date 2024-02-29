@@ -10,10 +10,10 @@ class FlareServiceProvider extends ServiceProvider
     /**
      * Register services.
      */
-    public function register(): void
+    public function register()
     {
         $this->app->singleton(FlareService::class, function ($app) {
-            return new FlareService(config('provider.flare.api_key'));
+            return new FlareService(config('services.flare.key'));
         });
     }
 
