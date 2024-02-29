@@ -24,15 +24,16 @@ class CheckSitesCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Vérifie l’état des sites configurés et enregistre les résultats.';
 
     /**
-     * Execute the console command.
+     *  Execute the console command.
+     *
+     * @param ResultService $resultService
+     * @return void
      */
-    public function handle()
+    public function handle(ResultService $resultService) :void
     {
-        $resultService = app(ResultService::class);
-
         $sites = config('sites');
 
         $delayInSeconds = 1;
@@ -44,8 +45,12 @@ class CheckSitesCommand extends Command
                 }
 
                 $studlyServiceName = Str::studly($serviceName);
-
                 $serviceClass = "App\\Services\\{$studlyServiceName}Service";
+
+                if (!class_exists($serviceClass)) {
+                    Log::warning("Service {$serviceClass} n'existe pas.");
+                    continue;
+                }
 
                 $service = app($serviceClass);
 
@@ -58,8 +63,8 @@ class CheckSitesCommand extends Command
                 } else {
                     Log::warning("{$studlyServiceName}: Aucune donnée récupérée pour {$siteName}.");
                 }
-
             }
         }
     }
+
 }

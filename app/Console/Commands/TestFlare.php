@@ -24,12 +24,11 @@ class TestFlare extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(FlareService $flareService)
     {
-        $flareService = new FlareService();
         $siteName = 'blanc-labo.com';
 
-        $errors = $flareService->getProjectErrors($siteName);
+        $errors = $flareService->getSiteData($siteName);
 
         $this->info("Erreurs pour {$siteName} : " . print_r($errors, true));
     }

@@ -24,14 +24,10 @@ class TestOhDear extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(OhDearService $ohDearService) :void
     {
 
-        $ohDearService = new OhDearService();
-
-        $siteId = 61225;
-
-        $siteDetails = $ohDearService->getSiteDetails($siteId);
+        $siteDetails = $ohDearService->getSiteData('firstpoint.ch');
 
         $this->info("Détails du site : " . print_r($siteDetails, true));
     }

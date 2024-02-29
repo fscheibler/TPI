@@ -9,19 +9,29 @@ use Illuminate\Support\Facades\Log;
 
 class ResultService
 {
-    public function saveResults($siteName, $sourceName, $data)
+    /**
+     * Enregistre les résultats dans la base de données.
+     *
+     * @param string $siteName Le nom du site pour lequel les résultats sont enregistrés.
+     * @param string $sourceName Le nom de la source des résultats.
+     * @param string $data Les données à enregistrer.
+     * @return void
+     */
+    public function saveResults(string $siteName, string $sourceName, array $data): void
     {
+        try {
+            $project = Project::updateOrCreate(['name' => $siteName]);
+            $source = Source::updateOrCreate(['name' => $sourceName]);
 
-        $project = Project::firstOrCreate(['name' => $siteName]);
+            $result = new Result();
+            $result->project_id = $project->id;
+            $result->source_id = $source->id;
+            $result->data = json_encode($data);
+            $result->save();
 
-        $source = Source::firstOrCreate(['name' => $sourceName]);
-
-        $result = new Result();
-        $result->project_id = $project->id;
-        $result->source_id = $source->id;
-        $result->data = json_encode($data);
-        $result->save();
-
-        Log::info("Résultat enregistré pour le projet {$siteName} depuis {$sourceName}.");
+            //Log::info("Résultat enregistré pour le projet '{$siteName}' (ID: {$project->id}) depuis '{$sourceName}' (ID: {$source->id}). Données: " . json_encode($data));
+        } catch (Exception $e) {
+            Log::error("Erreur lors de l'enregistrement des résultats pour '{$siteName}' depuis '{$sourceName}': " . $e->getMessage());
+        }
     }
 }
