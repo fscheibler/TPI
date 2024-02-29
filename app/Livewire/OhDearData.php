@@ -7,9 +7,9 @@ use App\Models\Result;
 
 class OhDearData extends Component
 {
-    public $projectId;
+    public int $projectId;
 
-    public function mount($projectId)
+    public function mount(int $projectId)
     {
         $this->projectId = $projectId;
     }
@@ -21,7 +21,7 @@ class OhDearData extends Component
                 $query->where('name', 'oh_dear');
             })->first();
 
-        $ohDearData = $result ? json_decode($result->data, true) : null;
+        $ohDearData = $result ? $result->data : null;
 
         return view('livewire.oh-dear-data', compact('ohDearData'));
     }

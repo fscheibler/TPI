@@ -23,11 +23,10 @@ class ResultService
             $project = Project::updateOrCreate(['name' => $siteName]);
             $source = Source::updateOrCreate(['name' => $sourceName]);
 
-            $result = new Result();
-            $result->project_id = $project->id;
-            $result->source_id = $source->id;
-            $result->data = json_encode($data);
-            $result->save();
+            $project->results()->create([
+                'source_id'=> $source->id,
+                'data' => $data
+            ]);
 
             //Log::info("Résultat enregistré pour le projet '{$siteName}' (ID: {$project->id}) depuis '{$sourceName}' (ID: {$source->id}). Données: " . json_encode($data));
         } catch (Exception $e) {

@@ -2,19 +2,20 @@
 
 namespace App\Livewire;
 
+use Illuminate\View\View;
 use Livewire\Component;
 use App\Models\Result;
 
 class FlareData extends Component
 {
-    public $projectId;
+    public int $projectId;
 
-    public function mount($projectId)
+    public function mount(int $projectId): void
     {
         $this->projectId = $projectId;
     }
 
-    public function render()
+    public function render(): View
     {
         $result = Result::where('project_id', $this->projectId)
             ->whereHas('source', function ($query) {
@@ -23,8 +24,7 @@ class FlareData extends Component
 
         $flareData = null;
         if ($result) {
-            $decodedData = json_decode($result->data, true);
-            $flareData = collect($decodedData['data'])->filter(function ($error) {
+            $flareData = collect($result->data['data'])->filter(function ($error) {
                 return $error['status'] === 'open';
             })->values()->all();
         }

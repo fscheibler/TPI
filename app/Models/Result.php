@@ -9,6 +9,12 @@ class Result extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
+    protected $casts= [
+        'data' => 'array',
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

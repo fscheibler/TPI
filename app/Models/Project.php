@@ -10,7 +10,12 @@ class Project extends Model
     use HasFactory;
     public $timestamps = false;
 
-    protected $fillable = ['name'];
+
+    protected $casts = [
+        'data' => 'array',
+    ];
+
+    protected $guarded = [];
 
     public function results()
     {

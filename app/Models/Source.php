@@ -8,9 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Source extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
     public $timestamps = false;
 
-    protected $fillable = ['name'];
+    protected $casts= [
+        'data' => 'array',
+    ];
+
     public function results()
     {
         return $this->hasMany(Result::class);

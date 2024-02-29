@@ -22,7 +22,7 @@ class ProjectsOverview extends Component
 
 
             $projects[$domain] = [
-                'id' => $project->id, // Inclure l'ID du projet
+                'id' => $project->id,
                 'domain' => $domain,
                 'oh_dear' => $ohDearStatus,
                 'flare' => $flareStatus,
@@ -40,7 +40,7 @@ class ProjectsOverview extends Component
             ->latest('created_at')
             ->first();
 
-        return $result ? json_decode($result->data, true)['summarized_check_result'] !== 'succeeded' : true;
+        return !$result || $result->data['summarized_check_result'] !== 'succeeded';
     }
 
     private function getFlareStatus($projectId)
@@ -51,7 +51,8 @@ class ProjectsOverview extends Component
             ->latest('created_at')
             ->first();
 
-        return $result ? !empty(json_decode($result->data, true)['data']) : true;
+        return !$result || !empty($result->data['data']);
+
     }
 
     public function render()
