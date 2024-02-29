@@ -6,10 +6,10 @@
 {{--        </h2>--}}
 {{--    </x-slot>--}}
 
-    <div class="py-12">
+    <div class="lg:py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-visible shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+            <div class="bg-gray-200 lg:bg-white overflow-visible shadow-sm sm:rounded-lg">
+                <div class="p-1 lg:p-6 text-gray-900">
                     @livewire('projects-overview')
                 </div>
             </div>

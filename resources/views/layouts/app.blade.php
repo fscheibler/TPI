@@ -15,14 +15,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col min-h-screen justify-between">
+    <body class="font-sans antialiased bg-gray-100">
+        <div class="bg-gray-100 flex flex-col justify-between mb-20 lg:mb-16">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class=" mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div class=" mx-auto py-2 lg:py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
@@ -33,7 +33,7 @@
                 {{ $slot }}
             </main>
 
-            <footer class="bg-white shadow mt-auto">
+            <footer class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 border-2">
                 <div class="flex justify-end mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <a href="/" class="inline-flex items-center hover:text-blue-600 transition-colors duration-200 ease-in-out">
                         Documentation

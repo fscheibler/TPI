@@ -5,14 +5,14 @@
                 <div class="text-lg font-semibold">{{ $project['domain'] }}</div>
                 <div class="flex items-center">
                     <!-- Oh Dear Status -->
-                    <div class="flex items-center mr-4">
-                        <span class="mr-2">Oh Dear</span>
+                    <div class="flex items-center mr-2 lg:mr-4">
+                        <span class="mr-1 lg:mr-2">Oh Dear</span>
                         <span class="h-4 w-4 rounded-full {{ $project['oh_dear'] === true ? 'bg-red-500' : ($project['oh_dear'] === false ? 'bg-green-500' : 'bg-gray-500') }}"></span>
                     </div>
 
                     <!-- Flare Status -->
-                    <div class="flex items-center mr-4">
-                        <span class="mr-2">Flare</span>
+                    <div class="flex items-center mr-2 lg:mr-4">
+                        <span class="mr-1 lg:mr-2">Flare</span>
                         <span class="h-4 w-4 rounded-full {{ $project['flare'] === true ? 'bg-red-500' : ($project['flare'] === false ? 'bg-green-500' : 'bg-gray-500') }}"></span>
                     </div>
 
