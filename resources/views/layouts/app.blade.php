@@ -34,6 +34,7 @@
             </main>
 
             <footer class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 border-2">
+                @livewire('check-sites')
                 <div class="flex justify-end mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <a href="/" class="inline-flex items-center hover:text-blue-600 transition-colors duration-200 ease-in-out">
                         Documentation
