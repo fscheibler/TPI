@@ -5,7 +5,7 @@
 
     <div x-data="{ showModal: @entangle('showModal') }">
         @component('components.modal', ['name' => 'checkSitesModal', 'show' => 'showModal', 'maxWidth' => '2xl'])
-            Contenu que vous souhaitez passer au modal.
+            Test
         @endcomponent
     </div>
 </div>
