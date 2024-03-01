@@ -99,9 +99,18 @@
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>
+
+
+
             </div>
 
         </div>
 
+
     </div>
+    <div class="sm:hidden flex justify-center pb-4">
+        @livewire('projects-dropdown')
+    </div>
+
+
 </nav>
