@@ -24,7 +24,7 @@ class ProjectsDropdown extends Component
     public function redirectToProject()
     {
         if (empty($this->selectedProject)) {
-            return redirect()->route('dashboard');
+            return;
         } else {
             return redirect()->route('projects.show', ['project' => $this->selectedProject]);
         }

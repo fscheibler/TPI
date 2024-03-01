@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Services\OhDearService;
+use Illuminate\Support\Facades\Log;
 
 class TestOhDear extends Command
 {
@@ -28,6 +29,8 @@ class TestOhDear extends Command
     {
 
         $siteDetails = $ohDearService->getSiteData('firstpoint.ch');
+
+        Log::error("Test oh dear");
 
         $this->info("Détails du site : " . print_r($siteDetails, true));
     }
