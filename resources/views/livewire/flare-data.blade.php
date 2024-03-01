@@ -1,8 +1,8 @@
-<div class="py-4">
+<div class="py-4 ">
     @if(!empty($flareData) && count($flareData) > 0)
         <!-- Tableau pour les grands écrans -->
         <div class="hidden sm:block">
-            <table class="w-full divide-y divide-gray-200 shadow rounded-lg border-2">
+            <table class="max-w-full divide-y divide-gray-200 shadow rounded-lg border-2">
                 <thead class="bg-gray-100">
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-bold uppercase tracking-wider">

@@ -2,7 +2,6 @@
     <div class="flex items-center gap-2">
         <label>
             <select wire:model="selectedProject" class="rounded">
-                <!-- Option comme valeur par défaut sans attribut disabled -->
                 <option value="">Sélectionner un projet</option>
                 @foreach ($projects as $project)
                     <option value="{{ $project->id }}">{{ $project->name }}</option>

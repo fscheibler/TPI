@@ -49,12 +49,6 @@ Configuration
 Les projets à monitorer sont ajoutés via un fichier de configuration **config/projects.php**, avec possibilité
 d'activer/désactiver des sources de données spécifiques.
 
-Documentation
--------------
-
-Accessible sous [monitoring.firstpoint.ch](/), nécessite
-une authentification. Tous les collaborateurs ont leur propre accès, mais les permissions sont uniformes.
-
 Bonnes Pratiques
 ----------------
 

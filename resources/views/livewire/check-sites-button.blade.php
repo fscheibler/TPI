@@ -5,7 +5,7 @@
         class="disabled:opacity-50 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
     >
         <template x-if="!loading">
-            <span>Vérifier les sites</span>
+            <span>Synchroniser les données</span>
         </template>
         <template x-if="loading">
             <span>Chargement...</span>
