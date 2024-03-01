@@ -1,13 +1,13 @@
 <?php
 
 return [
-    'firstpoint.ch' => [
-        'oh_dear' => [
-            'enabled' => true,
-            'site_id' => '61225',
+    'firstpoint.ch' => [            //Site à tracker
+        'oh_dear' => [              //Service Oh dear
+            'enabled' => true,      //Service activé (true/false)
+            'site_id' => '61225',   //Id du site
         ],
-        'flare' => [
-            'enabled' => true,
+        'flare' => [                //Service Flare
+            'enabled' => true,      //Service activé (true/false)
         ]
     ],
     'blanc-labo.com' => [
