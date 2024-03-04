@@ -8,7 +8,7 @@
             <span>Synchroniser les données</span>
         </template>
         <template x-if="loading">
-            <span>Chargement...</span>
+            <span>Synchronisation en cours</span>
         </template>
     </button>
 
